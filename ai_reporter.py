@@ -7,7 +7,7 @@ import plotly.express as px
 from datetime import datetime
 from googletrans import Translator
 
-keywords = ["AI", "Machine Learning","LLM","NLP","LangChain","Agent","Digital Human","AI Agent","Rag"]
+# keywords = ["AI", "Machine Learning","LLM","NLP","LangChain","Agent","Digital Human","AI Agent","Rag"]
 
 async def translate_to_chinese(text):
     """翻译为中文"""
@@ -21,7 +21,7 @@ def format_stars(stars_str):
 def fetch_github_trending():
     """GitHub Trending AI项目"""
     #monthly weekly daily
-    url = "https://github.com/trending/python?since=monthly"
+    url = "https://github.com/trending/python?since=weekly"
     res = requests.get(url)
     soup = BeautifulSoup(res.text, 'html.parser')
     repos = []
@@ -32,10 +32,9 @@ def fetch_github_trending():
         url = "https://github.com" + article.select_one('h2 a')['href']
         #描述
         desc = article.select_one('p').text.strip() if article.select_one('p') else ""
-        if not any(kw.lower() in desc.lower() for kw in keywords):
-            continue
+        # if not any(kw.lower() in desc.lower() for kw in keywords):
+        #     continue
         # Star数量
-        # 新版Star数量解析
         stars_tag = article.find('a', href=lambda href: href and 'stargazers' in href)
         stars_str = stars_tag.text.strip() if stars_tag else "0"
         #结果
@@ -77,13 +76,6 @@ async def create_markdown(report_data):
 
 
 async def format_section(items):
-    # return '\n'.join(
-    #     f"### {i+1}. {item['title'].replace('\n', '')}\n"
-    #     f"- ⭐ Stars: `{item['stars']:,}`\n"
-    #     f"- 📝 描述: {await translate_to_chinese(item.get('desc', '暂无描述'))}\n"
-    #     f"- 🔗 链接: {item['url']}"
-    #     for i, item in enumerate(items)
-    # )
     formatted_items = []
     for i, item in enumerate(items):
         title = item['title'].replace('\n', '')
