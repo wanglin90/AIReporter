@@ -53,8 +53,6 @@ def fetch_github_trending():
 # ================== NLP处理模块 ==================
 def classify_content(items):
     """简单分类器"""
-    # open_source_keywords = ['github', 'open source', 'library']
-    # business_keywords = ['launch', 'enterprise', 'cloud']
 
     categorized = {'open_source': []}
     for item in items:
