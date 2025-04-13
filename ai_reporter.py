@@ -1,9 +1,6 @@
 import asyncio
-
-import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-import plotly.express as px
 from datetime import datetime
 from googletrans import Translator
 
